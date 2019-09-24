@@ -36,7 +36,7 @@ export default class BasicLayout extends Component {
                <Menu.Item key="21"><Link to="/learn1/typography">排版</Link></Menu.Item>
                <Menu.Item key="22"><Link to="/learn1/cardrequest">card/后台</Link></Menu.Item>
                <Menu.Item key="23"><Link to="/learn1/booktable">书籍表格</Link></Menu.Item>
-               <Menu.Item key="24"><Link to="/dashboard/workplace">工作台</Link></Menu.Item>
+               <Menu.Item key="24"><Link to="/learn1/form">表单提交</Link></Menu.Item>
             </SubMenu>
           </Menu>
         </Sider>

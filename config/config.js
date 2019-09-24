@@ -35,6 +35,7 @@ export default {
           { path: '/learn1/typography', component: 'Learn1/Typography' },
           { path: '/learn1/cardrequest', component: 'Learn1/CardRequest' },
           { path: '/learn1/booktable', component: 'Learn1/BookTable' },
+          { path: '/learn1/form', component: 'Learn1/Form' },
         ]
       },
     ]
