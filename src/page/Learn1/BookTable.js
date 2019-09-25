@@ -10,7 +10,8 @@ const mapStateToProps = (state) => {
   const books = state[namespace].data;
   return {
     p_books: books,
-    ld : state.loading.effects['booktable/initBooks']
+    ld : state.loading.effects['booktable/initBooks'],
+    // ld_addbook : state.loading.effects['booktable/addBook'],
   };
 };
 
@@ -28,12 +29,12 @@ const columns = [
     {
         title: '书名',
         dataIndex: 'name',
-        width: 150,
+        width: 250,
     },
     {
         title: '作者',
         dataIndex: 'author',
-        width: 150,
+        width: 250,
     },
     {
         title: '价格',
@@ -60,6 +61,10 @@ class BookTable extends React.Component {
     //周期函数
     componentDidMount() {
       this.props.onDidMount();
+      // this.setState({
+      //   visible: this.props.ld_addbook
+      // });
+
 
     }
 
@@ -93,6 +98,8 @@ class BookTable extends React.Component {
     render() {
         const { visible } = this.state;
         const { form: { getFieldDecorator } } = this.props;
+
+        
         return (
           <div>
             <Table loading={this.props.ld} columns={columns} dataSource={this.props.p_books} pagination={{ pageSize: 50 }} scroll={{ y: 340 }} />

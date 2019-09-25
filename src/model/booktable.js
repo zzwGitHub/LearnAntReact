@@ -17,7 +17,7 @@ export default {
       const { call, put } = sagaEffects;
       const endPointURI = `/BootServer/book/add?name=${payload.name}&author=${payload.author}&price=${payload.price}`;
       const addRes = yield call(request, endPointURI);
-      // yield put({ type: 'addBookRes', payload: addRes });
+      yield put({ type: 'initBooks', payload: addRes });
 
     //   yield call(delay, 3000);
 
