@@ -12,11 +12,12 @@ export default {
     data: []
   },
   effects: {
-    *queryInitBooks(_, sagaEffects) {
+    *addBook({payload}, sagaEffects) {
+      console.log(payload);
       const { call, put } = sagaEffects;
-      const endPointURI = '/BootServer/test/tableData';
-      const puzzle = yield call(request, endPointURI);
-      yield put({ type: 'addNewCard', payload: puzzle });
+      const endPointURI = `/BootServer/book/add?name=${payload.name}&author=${payload.author}&price=${payload.price}`;
+      const addRes = yield call(request, endPointURI);
+      // yield put({ type: 'addBookRes', payload: addRes });
 
     //   yield call(delay, 3000);
 
@@ -36,13 +37,9 @@ export default {
             data: books,
         };
     },
-    // addNewCard(state, { payload: newCard }) {
-    //   const nextCounter = state.counter + 1;
-    //   const newCardWithId = { ...newCard, id: nextCounter };
-    //   const nextData = state.data.concat(newCardWithId);
+    // addBookRes(state, { payload: addRes }) {
+    //   console.log(addRes);
     //   return {
-    //     data: nextData,
-    //     counter: nextCounter,
     //   };
     // }
   },

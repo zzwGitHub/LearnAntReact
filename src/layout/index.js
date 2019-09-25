@@ -7,14 +7,32 @@ import Link from 'umi/link';
 const SubMenu = Menu.SubMenu;
 
 export default class BasicLayout extends Component {
+
+  state = {
+    openKeys: ['sub1'],
+  };
+
+  onOpenChange = openKeys => {
+    const latestOpenKey = openKeys.find(key => this.state.openKeys.indexOf(key) === -1);
+    this.setState({
+      openKeys: latestOpenKey ? [latestOpenKey] : [],
+    });
+  };
+
   render() {
     return (
       <Layout>
-        <Sider width={256} style={{ minHeight: '100vh' }}>
+        <Sider width={256} style={{ minHeight: '100vh' }} collapsed={false}>
           <div style={{ height: '32px', background: 'rgba(255,255,255)', margin: '16px', textAlign: 'center'}}>
             <p >测试项目</p>
           </div>
-          <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
+          <Menu 
+            theme="dark" 
+            mode="inline" 
+            defaultSelectedKeys={['1']}
+            openKeys={this.state.openKeys}
+            onOpenChange={this.onOpenChange}
+          >
             <Menu.Item key="1">
               <Link to="/helloworld">
                 <Icon type="pie-chart" />
@@ -37,6 +55,17 @@ export default class BasicLayout extends Component {
                <Menu.Item key="22"><Link to="/learn1/cardrequest">card/后台</Link></Menu.Item>
                <Menu.Item key="23"><Link to="/learn1/booktable">书籍表格</Link></Menu.Item>
                <Menu.Item key="24"><Link to="/learn1/form">表单提交</Link></Menu.Item>
+               <Menu.Item key="25"><Link to="/learn1/yqform">语雀表单</Link></Menu.Item>
+            </SubMenu>
+            <SubMenu
+              key="sub3"
+              title={<span><Icon type="edit" theme="twoTone" /><span>学习二</span></span>}
+            >
+               <Menu.Item key="31"><Link to="/learn1/typography">排版</Link></Menu.Item>
+               <Menu.Item key="32"><Link to="/learn1/cardrequest">card/后台</Link></Menu.Item>
+               <Menu.Item key="33"><Link to="/learn1/booktable">书籍表格</Link></Menu.Item>
+               <Menu.Item key="34"><Link to="/learn1/form">表单提交</Link></Menu.Item>
+               <Menu.Item key="35"><Link to="/learn1/yqform">语雀表单</Link></Menu.Item>
             </SubMenu>
           </Menu>
         </Sider>

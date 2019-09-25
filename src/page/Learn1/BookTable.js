@@ -1,7 +1,8 @@
 import React from 'react';
-import { Table } from 'antd';
+import {Table, Modal, Button, Form, Input} from 'antd';
 import { connect } from 'dva';
 
+const FormItem = Form.Item;
 
 const namespace = 'booktable';
 
@@ -52,20 +53,78 @@ const columns = [
 
 @connect(mapStateToProps, mapDispatchToProps)
 class BookTable extends React.Component {
-    
+    state = {
+        visible: false,
+    }
+
+    //周期函数
     componentDidMount() {
-        this.props.onDidMount();
+      this.props.onDidMount();
 
     }
+
+    showModal = () => {
+      this.setState({ visible: true });
+    };
+
+    handleCancel = () => {
+      this.setState({
+        visible: false,
+      });
+    }
+
+    handleOk = () => {
+      const { dispatch, form: { validateFields } } = this.props;
+    
+      validateFields((err, values) => {
+        if (!err) {
+          dispatch({
+            type: `${namespace}/addBook`,
+            payload: values,
+          });
+          // 重置 `visible` 属性为 false 以关闭对话框
+          this.setState({ visible: false });
+        }
+      });
+    }
+
+    
     
     render() {
+        const { visible } = this.state;
+        const { form: { getFieldDecorator } } = this.props;
         return (
+          <div>
             <Table loading={this.props.ld} columns={columns} dataSource={this.props.p_books} pagination={{ pageSize: 50 }} scroll={{ y: 340 }} />
+            <Button onClick={this.showModal}>新建</Button>
+            <Modal title="新建记录" visible={this.state.visible} onCancel={this.handleCancel} onOk={this.handleOk}>
+                <Form>
+                    <FormItem label="书名">
+                        {getFieldDecorator('name', {
+                            rules: [{ required: true }],
+                        })(
+                            <Input />
+                        )}
+                    </FormItem>
+                    <FormItem label="作者">
+                        {getFieldDecorator('author')(
+                            <Input />
+                        )}
+                    </FormItem>
+                    <FormItem label="价格">
+                        {getFieldDecorator('price', {
+                            rules: [{ type: 'string' }],
+                        })(
+                            <Input />
+                        )}
+                    </FormItem>
+                </Form>
+            </Modal>
+          </div>
         );
     }
 }
-
-export default BookTable;
+export default connect(mapStateToProps)(Form.create()(BookTable));
 
 
 
