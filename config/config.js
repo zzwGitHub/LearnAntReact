@@ -36,7 +36,13 @@ export default {
           { path: '/learn1/cardrequest', component: 'Learn1/CardRequest' },
           { path: '/learn1/booktable', component: 'Learn1/BookTable' },
           { path: '/learn1/form', component: 'Learn1/Form' },
-          { path: '/learn1/yqform', component: 'Learn1/Yqform' },
+          { path: '/learn1/login', component: 'Learn1/Login' },
+        ]
+      },
+      {
+        path: '/datainput',
+        routes: [
+          { path: '/datainput/datepickerpage', component: 'DataInput/DatePickerPage' },
         ]
       },
     ]
