@@ -9,11 +9,11 @@ import request from '../util/request';  // request 是 demo 项目脚手架中�
 export default {
   namespace: 'booktable',
   state: {
-    data: []
+    data: [],
+    statistics:{},
   },
   effects: {
     *addBook({payload}, sagaEffects) {
-      console.log(payload);
       const { call, put } = sagaEffects;
       const endPointURI = `/BootServer/book/add?name=${payload.name}&author=${payload.author}&price=${payload.price}`;
       const addRes = yield call(request, endPointURI);
@@ -29,18 +29,29 @@ export default {
         const endPointURI = '/BootServer/book/list';
         const books = yield call(request, endPointURI);
         yield put({ type: 'initTable', payload: books });
-    }
+    },
+    *getStatistic({payload}, { call, put }) {
+      const endPointURI = `/BootServer/book/getStatistic`;
+      const statistics = yield call(request, endPointURI);
+      yield put({ type: 'showStatistic', payload: {data:statistics,  id: payload}});
+      return statistics;
+    },
   },
   reducers: {
     initTable(state, { payload: books }){
         return {
+          ...state,
             data: books,
         };
     },
-    // addBookRes(state, { payload: addRes }) {
-    //   console.log(addRes);
-    //   return {
-    //   };
-    // }
+    showStatistic(state, { payload: {data, id}}){
+      return {
+        ...state,
+        statistics: {
+          ...state.statistics,
+          [id]: data,
+        },
+      };
+    },
   },
 };

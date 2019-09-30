@@ -12,6 +12,23 @@ const random_jokes = [
       punchline: 'A satisfactory',
     },
   ];
+
+const book_list = [
+  {
+    name : "temane",
+    author : "teauthor",
+    price : "455"
+  }
+]
+
+
+const static_list = [
+  { genre: 'Sports', sold: 275 },
+  { genre: 'Strategy', sold: 1150 },
+  { genre: 'Action', sold: 120 },
+  { genre: 'Shooter', sold: 350 },
+  { genre: 'Other', sold: 150 },
+]
   
   let random_joke_call_count = 0;
   
@@ -22,5 +39,11 @@ const random_jokes = [
       setTimeout(() => {
         res.json(responseObj);
       }, 3000);
+    },
+    'get /BootServer/book/list_bak': function (req, res) {
+        res.json(book_list);
+    },
+    'get /BootServer/book/getStatistic_bak': function (req, res) {
+      res.json(static_list);
     },
   };
